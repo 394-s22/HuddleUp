@@ -1,24 +1,29 @@
-import logo from './logo.svg';
+import fakeEvents from './fakeEvents.json';
 import './App.css';
 
-function App() {
+const Banner = ({ title }) => (
+  <h1>{ title }</h1>
+);
+
+const Event = ({ event }) => (
+  <div>
+    { event.title } hosted by { event.host } at { event.location }
+    { event.date } : {event.start_time}-{event.end_time}
+  </div>
+);
+
+const EventsList = ({ events }) => (
+  <div>
+  { Object.values(events).map(event => <Event key={ event.id } event={ event } />) }
+  </div>
+);
+
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <div>
+      <Banner title={ fakeEvents.title } />
+      <EventsList events={ fakeEvents.events } />
+  </div>
   );
 }
 
