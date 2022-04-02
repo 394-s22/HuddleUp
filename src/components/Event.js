@@ -1,5 +1,20 @@
 import { Card, Button } from 'react-bootstrap';
 import { useState } from 'react';
+import { setData } from "../utilities/firebase";
+
+const joinEvent = async (event) => {
+  try {
+    if(event.join_status){
+      await setData(`/events/${event.id}/join_status`, false);
+      await setData(`/events/${event.id}/current_players`, event.current_players-1);
+    } else {
+      await setData(`/events/${event.id}/join_status`, true);
+      await setData(`/events/${event.id}/current_players`, event.current_players+1);
+    }
+  } catch (error) {
+    alert(error);
+  }
+};
 
 const Event = ({ event, setEventsList }) => {  
   const [joined, setJoined] = useState(event.join_status);
@@ -10,13 +25,11 @@ const Event = ({ event, setEventsList }) => {
     // edit 'join_status' property for that event
     if (event.join_status) {
       setJoined(false);
-      event.join_status = false;
-      event.current_players -= 1;
+      joinEvent(event);
     }
     else {
       setJoined(true);
-      event.join_status = true;
-      event.current_players += 1;
+      joinEvent(event);
     };
   };
 
