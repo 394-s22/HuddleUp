@@ -1,5 +1,5 @@
 {
-    "title": "GatherUp",
+    "title": "HuddleUp",
     "events": [
       {
         "id": "0",
@@ -18,7 +18,7 @@
       {
         "id": "1",
         "title": "Pickup Spikeball",
-        "description": "Looking for fellow spikeball players to play at the Lakefill.",
+        "description": "Looking for fellow Spikeball players to play at the Lakefill.",
         "sport": "Spikeball",        
         "host": "Jim Kim",
         "location": "Lakefill",
