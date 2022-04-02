@@ -1,44 +1,56 @@
 import { Button, Stack, Form } from 'react-bootstrap';
 import { useState } from 'react';
 
-const handleSearch = (searchText, fakeEvents, setEventsList) => {
-    //use searchText to filter cards
-    //console.log(searchText);
-    setEventsList(fakeEvents.events.filter(event => 
-      (event.title + 
-        event.description + 
-        event.sport + 
-        event.host + 
-        event.location).toLowerCase().includes(searchText.toLowerCase())));
-  }
+const handleSearch = (searchText, fakeEvents, setEventsList, checked) => {
+  setEventsList(fakeEvents.events.filter(event =>
+    (event.title +
+    event.description +
+    event.sport +
+    event.host +
+    event.location).toLowerCase().includes(searchText.toLowerCase())).filter(checked ? e => e.join_status : e => true ));
+}
 
-  const handleKeyPress = (searchText, fakeEvents, setEventsList) => ( (e) => {
-    if (e.key === "Enter") handleSearch(searchText, fakeEvents, setEventsList);
-  })
+const handleKeyPress = (searchText, fakeEvents, setEventsList, checked) => ((e) => {
+  if (e.key === "Enter") handleSearch(searchText, fakeEvents, setEventsList, checked);
+})
 
-const SearchBar = ({fakeEvents, setEventsList}) => {
-    const [searchText, setSearchText] = useState('');
+const SearchBar = ({ fakeEvents, setEventsList }) => {
+  const [searchText, setSearchText] = useState('');
+  const [checked, setChecked] = useState(false);
 
-    return (
-        <Stack direction="horizontal" gap={3}>
-            <Form.Control
-            className="me-auto"
-            placeholder="Search events..."
-            onChange={(e) => setSearchText(e.target.value)}
-            onKeyPress = {handleKeyPress(searchText, fakeEvents, setEventsList)}
-            />
-            <Button
-            variant="secondary"
-            onClick={() => handleSearch(searchText, fakeEvents, setEventsList)}>
-            Search
-            </Button>
-            <div className="vr" />
-            <Button
-            variant="outline-danger"
-            onClick={() => setEventsList(fakeEvents.events)}>
-            Reset
-            </Button>
-        </Stack>
+  return (
+    <div>
+      <Stack direction="horizontal" gap={3}>
+        <Form.Control
+          className="me-auto"
+          placeholder="Search events..."
+          onChange={(e) => setSearchText(e.target.value)}
+          onKeyPress={handleKeyPress(searchText, fakeEvents, setEventsList, checked)}
+        />
+        <Button
+          variant="secondary"
+          onClick={() => handleSearch(searchText, fakeEvents, setEventsList, checked)}>
+          Search
+        </Button>
+        <div className="vr" />
+        <Button
+          variant="outline-danger"
+          onClick={() => setEventsList(fakeEvents.events)}>
+          Reset
+        </Button>
+      </Stack>
+      <Form.Check
+        type="checkbox"
+        label="My Events"
+        style={{ textAlign: "left" }}
+        onChange={() => {
+          const nextState = checked? false : true;
+          setChecked(nextState);
+          handleSearch(searchText, fakeEvents, setEventsList, nextState);
+        }}
+      >
+      </Form.Check>
+    </div>
   )
 }
 
