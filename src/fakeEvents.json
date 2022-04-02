@@ -4,6 +4,7 @@
       {
         "id": "0",
         "title": "Pickup Volleyball",
+        "description": "Casual Volleyball game open to players of all levels!",
         "sport": "Volleyball",
         "host": "John Doe",
         "location": "Deering",
@@ -14,6 +15,7 @@
       {
         "id": "1",
         "title": "Pickup Spikeball",
+        "description": "Looking for fellow spikeball players to play at the Lakefill.",
         "sport": "Spikeball",        
         "host": "Jim Kim",
         "location": "Lakefill",
@@ -24,6 +26,7 @@
       {
         "id": "2",
         "title": "Blacktop Basketball",
+        "description": "We're setting up a basketball game at the Bobb Basketball Courts. Anyone who wants to play is welcome!",
         "sport": "Basketball",
         "host": "Jane Doe",
         "location": "Bobb Basketball Courts",
@@ -34,6 +37,7 @@
       {
         "id": "3",
         "title": "Casual Soccer",
+        "description": "Join Will Smith as he swears off using his hands after in act of penance! Meet us outside of Deering!!",
         "sport": "Soccer",
         "host": "Will Smith",
         "location": "Deering",
@@ -44,6 +48,7 @@
       {
         "id": "4",
         "title": "Basketball at SPACC",
+        "description": "Why take a slap to the face when you can take a ball?! Join Chris Rock at SPACC!",
         "sport": "Basketball",
         "host": "Chris Rock",
         "location": "SPACC",
@@ -54,6 +59,7 @@
       {
         "id": "5",
         "title": "Baseball Tournament",
+        "description": "Northwesterns best and only baseball tournament. Join up if you think you have a shot...",
         "sport": "Baseball",
         "host": "Jon Sullivan",
         "location": "Deering",
@@ -64,6 +70,7 @@
       {
         "id": "6",
         "title": "Basketball at SPACC",
+        "description": "Causal basketball for beginners",
         "sport": "Basketball",
         "host": "Johnny Test",
         "location": "SPACC",
@@ -74,6 +81,7 @@
       {
         "id": "7",
         "title": "Blackjack High Bets",
+        "description": "buy in $100",
         "sport": "Blackjack",
         "host": "Miranda Cosgrove",
         "location": "Deering",
@@ -84,6 +92,7 @@
       {
         "id": "8",
         "title": "Soccer ",
+        "description": "trying to get a good number of people to play a real game",
         "sport": "Soccer",
         "host": "Dwayne Johnson",
         "location": "Lakefill",
@@ -94,6 +103,7 @@
       {
         "id": "9",
         "title": "Basketball at SPACC",
+        "description": "open to any game. pickup, PIG/HORSE, or just free throws",
         "sport": "Basketball",
         "host": "Kim Possible",
         "location": "SPACC",
@@ -103,8 +113,9 @@
       },
       {
         "id": "10",
-        "title": "Soccer at SPACC",
-        "sport": "Soccer",
+        "title": "Tennis at SPACC",
+        "description": "Casual tennis for anyone, willing to switch in and out if we have the numbers",
+        "sport": "Tennis",
         "host": "Ron Weasley",
         "location": "SPACC",
         "date": "2022-04-22",
