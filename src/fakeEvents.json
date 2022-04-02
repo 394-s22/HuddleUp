@@ -13,7 +13,8 @@
         "current_players": 7,
         "date": "2022-04-11",
         "start_time": "12:00",
-        "end_time": "12:50"
+        "end_time": "12:50",
+        "join_status": true
       },
       {
         "id": "1",
@@ -27,7 +28,8 @@
         "current_players": 8,
         "date": "2022-04-13",
         "start_time": "11:00",
-        "end_time": "11:50"
+        "end_time": "11:50",
+        "join_status": false
       },
       {
         "id": "2",
@@ -41,7 +43,8 @@
         "location": "Bobb Basketball Courts",
         "date": "2022-04-15",
         "start_time": "13:00",
-        "end_time": "14:30"
+        "end_time": "14:30",
+        "join_status": true
       },
       {
         "id": "3",
@@ -55,7 +58,8 @@
         "location": "Deering",
         "date": "2022-04-20",
         "start_time": "11:00",
-        "end_time": "11:50"
+        "end_time": "11:50",
+        "join_status": true
       },
       {
         "id": "4",
@@ -69,7 +73,8 @@
         "location": "SPACC",
         "date": "2022-04-17",
         "start_time": "14:00",
-        "end_time": "15:20"
+        "end_time": "15:20",
+        "join_status": false
       },
       {
         "id": "5",
@@ -83,7 +88,8 @@
         "location": "Deering",
         "date": "2022-04-15",
         "start_time": "12:00",
-        "end_time": "17:50"
+        "end_time": "17:50",
+        "join_status": false
       },
       {
         "id": "6",
@@ -97,7 +103,8 @@
         "location": "SPACC",
         "date": "2022-04-22",
         "start_time": "14:00",
-        "end_time": "15:30"
+        "end_time": "15:30",
+        "join_status": false
       },
       {
         "id": "7",
@@ -111,7 +118,8 @@
         "location": "Deering",
         "date": "2022-04-22",
         "start_time": "20:00",
-        "end_time": "22:30"
+        "end_time": "22:30",
+        "join_status": false
       },
       {
         "id": "8",
@@ -125,7 +133,8 @@
         "location": "Lakefill",
         "date": "2022-04-22",
         "start_time": "13:00",
-        "end_time": "15:45"
+        "end_time": "15:45",
+        "join_status": false
       },
       {
         "id": "9",
@@ -139,7 +148,8 @@
         "location": "SPACC",
         "date": "2022-04-22",
         "start_time": "14:00",
-        "end_time": "16:30"
+        "end_time": "16:30",
+        "join_status": false
       },
       {
         "id": "10",
@@ -153,7 +163,8 @@
         "location": "SPACC",
         "date": "2022-04-22",
         "start_time": "13:00",
-        "end_time": "14:30"
+        "end_time": "14:30",
+        "join_status": false
       }
     ]
   }
