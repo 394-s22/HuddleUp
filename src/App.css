@@ -3,6 +3,13 @@
   margin: 1em;
 }
 
+.banner {
+  text-align: center;
+  background-color: #d9e1e3;
+  padding: 5px;
+  padding-bottom: 5px;
+}
+
 .App-logo {
   height: 40vmin;
   pointer-events: none;

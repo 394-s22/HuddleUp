@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { useUserState } from '../utilities/firebase';
 import { Card, Button } from 'react-bootstrap';
 import { setData } from "../utilities/firebase";
 
@@ -18,6 +19,8 @@ const joinEvent = async (event) => {
 
 const Event = ({ event, setEventsList }) => {  
   const [joined, setJoined] = useState(event.join_status);
+  const [user] = useUserState();
+
   const handleJoin = () => {
     // edit list of joined events; how to keep track of this list across components?
     // need to pass down the list of joined events from App.js?
@@ -52,8 +55,9 @@ const Event = ({ event, setEventsList }) => {
         <Button
           variant="primary"
           onClick={() => handleJoin()}
-          disabled={event.current_players >= event.max_players}
-        >{ event.join_status ? 'Joined' : 'Join' }</Button>
+          disabled={event.current_players >= event.max_players || !user}
+          style={{backgroundColor: event.join_status ? '#c71c13' : '#0d6efd'}}
+        >{ event.join_status ? 'Leave' : 'Join' }</Button>
       </Card.Body>
     </Card>
   );

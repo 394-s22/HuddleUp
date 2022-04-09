@@ -6,7 +6,7 @@ import { useEffect, useState } from 'react';
 import { useData } from './utilities/firebase';
 
 const Banner = ({ title }) => (
-  <h1>{title}</h1>
+  <h1 className='banner' >{title}</h1>
 );
 
 const App = () => {
@@ -19,10 +19,12 @@ const App = () => {
   if (loading) return <h1>Loading...</h1>;
 
   return (
-    <div className='App'>
+    <>
       <Banner title={fakeEvents.title} />
-      <EventsList events={curEvents} setEventsList={setEventsList}/>
-    </div>
+        <div className='App'>
+        <EventsList events={curEvents} setEventsList={setEventsList}/>
+      </div>
+    </>
   );
 };
 
