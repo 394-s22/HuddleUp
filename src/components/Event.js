@@ -1,5 +1,5 @@
-import { Card, Button } from 'react-bootstrap';
 import { useState } from 'react';
+import { Card, Button } from 'react-bootstrap';
 import { setData } from "../utilities/firebase";
 
 const joinEvent = async (event) => {

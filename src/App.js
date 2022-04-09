@@ -16,14 +16,12 @@ const App = () => {
   useEffect( () =>  {
     setCurEvents(eventsList);
   }, [eventsList]);
-  //const [joinedEvents, setJoinedEvents] = useState([]);
 
   if (loading) return <h1>Loading...</h1>;
 
   return (
     <div className='App'>
       <Banner title={fakeEvents.title} />
-      <SearchBar eventsList={eventsList} curEvents={curEvents} setEventsList={setCurEvents}/>
       <EventsList events={curEvents} setEventsList={setEventsList}/>
     </div>
   );
