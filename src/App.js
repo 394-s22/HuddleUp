@@ -2,7 +2,6 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import fakeEvents from './fakeEvents.json';
 import EventsList from './components/EventsList';
-import SearchBar from './components/SearchBar';
 import { useEffect, useState } from 'react';
 import { useData } from './utilities/firebase';
 

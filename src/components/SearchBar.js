@@ -1,7 +1,9 @@
 import { useState } from 'react';
+import { signInWithGoogle, signOut, useUserState } from '../utilities/firebase';
 import { Button, Stack, Form } from 'react-bootstrap';
 
-const SearchBar = ({ checked,  setSearchText, setChecked }) => {
+const SearchBar = ({ checked, setSearchText, setChecked }) => {
+  const [user] = useUserState();
 
   return (
     <div>
@@ -11,6 +13,15 @@ const SearchBar = ({ checked,  setSearchText, setChecked }) => {
           placeholder="Search events..."
           onChange={(e) => setSearchText(e.target.value)}
         />
+        <Button
+          variant="primary"
+          style={{
+            width: "fit-content",
+            whiteSpace: "nowrap"
+          }}
+          onClick={() => user ? signOut() : signInWithGoogle()}>
+          {user ? "Sign Out" : "Sign In"}
+        </Button>
       </Stack>
       <Form.Check
         type="checkbox"
