@@ -26,7 +26,8 @@ const SearchBar = ({ checked, setSearchText, setChecked }) => {
       <Form.Check
         type="checkbox"
         label="My Events"
-        style={{ textAlign: "left" }}
+        style={{ textAlign: "left",
+                 display: user ? null : 'none'}}
         onChange={() => {
           const nextState = checked ? false : true;
           setChecked(nextState);
