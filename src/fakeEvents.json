@@ -14,7 +14,7 @@
         "date": "2022-04-11",
         "start_time": "12:00",
         "end_time": "12:50",
-        "join_status": true
+        "join_status": false
       },
       {
         "id": "1",
@@ -44,7 +44,7 @@
         "date": "2022-04-15",
         "start_time": "13:00",
         "end_time": "14:30",
-        "join_status": true
+        "join_status": false
       },
       {
         "id": "3",
@@ -59,7 +59,7 @@
         "date": "2022-04-20",
         "start_time": "11:00",
         "end_time": "11:50",
-        "join_status": true
+        "join_status": false
       },
       {
         "id": "4",
