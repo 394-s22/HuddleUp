@@ -56,8 +56,8 @@ const Event = ({ event, setEventsList }) => {
           variant="primary"
           onClick={() => handleJoin()}
           disabled={event.current_players >= event.max_players || !user}
-          style={{backgroundColor: event.join_status ? '#c71c13' : '#0d6efd'}}
-        >{ event.join_status ? 'Leave' : 'Join' }</Button>
+          style={{backgroundColor: user && event.join_status ? '#c71c13' : '#0d6efd'}}
+        >{ user && event.join_status ? 'Leave' : 'Join' }</Button>
       </Card.Body>
     </Card>
   );
