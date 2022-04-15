@@ -1,7 +1,7 @@
 import { useState, render, useRef } from 'react';
 import { useUserState } from '../utilities/firebase';
-import { Card, Button, Tooltip, Overlay, OverlayTrigger } from 'react-bootstrap';
-import { setData } from "../utilities/firebase";
+import { Card, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
+import { useData, setData } from "../utilities/firebase";
 
 const joinEvent = async (event) => {
   try {
@@ -77,25 +77,6 @@ const Event = ({ event, setEventsList }) => {
             </Button>
           </span>
         </OverlayTrigger>
-        
-        {/* <span ref={target}>
-            <Button
-              variant="primary"
-              onClick={() => handleJoin()}
-              disabled={event.current_players >= event.max_players || !user}
-              style={{backgroundColor: user && event.join_status ? '#c71c13' : '#0d6efd'}}
-            >{ user && event.join_status ? 'Leave' : 'Join' }
-            </Button>
-          </span>
-
-        <Overlay
-          target = {target.current}
-          delay={{ show: 250, hide: 400 }}
-          onHide={() => !user}
-          rootCloseEvent = 'hover'
-          >
-            Sign in to join events!
-          </Overlay> */}
         
       </Card.Body>
     </Card>

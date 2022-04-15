@@ -1,0 +1,10 @@
+ {
+    "id": {
+        "display_name": "name1",
+        "joined_events": ["event1_id", "event2_id"] 
+    },
+    "id2": {
+        "display_name": "name2",
+        "joined_events": ["event1_id", "event2_id"] 
+    }
+ }    
