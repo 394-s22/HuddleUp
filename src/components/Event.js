@@ -1,6 +1,6 @@
-import { useState } from 'react';
+import { useState, render, useRef } from 'react';
 import { useUserState } from '../utilities/firebase';
-import { Card, Button } from 'react-bootstrap';
+import { Card, Button, Tooltip, Overlay, OverlayTrigger } from 'react-bootstrap';
 import { setData } from "../utilities/firebase";
 
 const joinEvent = async (event) => {
@@ -17,9 +17,17 @@ const joinEvent = async (event) => {
   }
 };
 
+const renderTooltip = (props) => (
+    <Tooltip id="button-tooltip" {...props}>
+      Sign in to join events!
+    </Tooltip>
+  );
+
 const Event = ({ event, setEventsList }) => {  
   const [joined, setJoined] = useState(event.join_status);
   const [user] = useUserState();
+  // const target = useRef(null);
+  // const [show, setShow] = useState(user);
 
   const handleJoin = () => {
     // edit list of joined events; how to keep track of this list across components?
@@ -52,12 +60,43 @@ const Event = ({ event, setEventsList }) => {
         <Card.Text>
           {event.description}
         </Card.Text>
-        <Button
-          variant="primary"
-          onClick={() => handleJoin()}
-          disabled={event.current_players >= event.max_players || !user}
-          style={{backgroundColor: user && event.join_status ? '#c71c13' : '#0d6efd'}}
-        >{ user && event.join_status ? 'Leave' : 'Join' }</Button>
+
+
+        <OverlayTrigger
+          placement="right"
+          delay={{ show: 250, hide: 400 }}
+          overlay= {!user ? renderTooltip : (props) => (<span></span>)}
+        >
+          <span>            
+            <Button
+              variant="primary"
+              onClick={() => handleJoin()}
+              disabled={event.current_players >= event.max_players || !user}
+              style={{backgroundColor: user && event.join_status ? '#c71c13' : '#0d6efd'}}
+            >{ user && event.join_status ? 'Leave' : 'Join' }
+            </Button>
+          </span>
+        </OverlayTrigger>
+        
+        {/* <span ref={target}>
+            <Button
+              variant="primary"
+              onClick={() => handleJoin()}
+              disabled={event.current_players >= event.max_players || !user}
+              style={{backgroundColor: user && event.join_status ? '#c71c13' : '#0d6efd'}}
+            >{ user && event.join_status ? 'Leave' : 'Join' }
+            </Button>
+          </span>
+
+        <Overlay
+          target = {target.current}
+          delay={{ show: 250, hide: 400 }}
+          onHide={() => !user}
+          rootCloseEvent = 'hover'
+          >
+            Sign in to join events!
+          </Overlay> */}
+        
       </Card.Body>
     </Card>
   );
