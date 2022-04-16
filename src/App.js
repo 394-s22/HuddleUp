@@ -13,7 +13,7 @@ const Banner = ({ title }) => (
 const App = () => {
   const [eventsList, setEventsList, loading] = useData("/events");
   const [curEvents, setCurEvents] = useState([]);
-  useEffect( () =>  {
+  useEffect(() => {
     setCurEvents(eventsList);
   }, [eventsList]);
 
@@ -22,8 +22,8 @@ const App = () => {
   return (
     <>
       <Banner title={fakeEvents.title} />
-        <div className='App'>
-        <EventsList events={curEvents} setEventsList={setEventsList}/>
+      <div className='App'>
+        <EventsList events={curEvents} setEventsList={setEventsList} />
       </div>
         <br />
         <br />
