@@ -1,6 +1,7 @@
 import { useState } from 'react';
-import { Stack } from 'react-bootstrap';
+import { Stack, Container, Button } from 'react-bootstrap';
 import Event from './Event';
+import NavBar from './NavBar';
 import SearchBar from './SearchBar';
 
 const EventsList = ({ events, setEventsList }) => {
@@ -16,6 +17,7 @@ const EventsList = ({ events, setEventsList }) => {
   return (
     <Stack direction="vertical" gap={3}>
       <SearchBar checked = {checked} setSearchText={setSearchText} setChecked={setChecked}/>
+      <NavBar checked = {checked} setChecked = {setChecked}/>
     { filteredEvents.map(event => <Event key={ event.id } event={ event } setEventsList={setEventsList} />) }
     </Stack>
   )};
