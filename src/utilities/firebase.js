@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { useState, useEffect } from 'react';
-import { getDatabase, onValue, ref, set } from 'firebase/database';
+import { getDatabase, onValue, ref, set, push } from 'firebase/database';
 import { getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut } from 'firebase/auth';
 
 
@@ -20,6 +20,10 @@ const database = getDatabase(firebase);
 
 export const setData = (path, value) => (
   set(ref(database, path), value)
+);
+
+export const pushData = (path, value) => (
+  push(ref(database, path), value)
 );
 
 export const useData = (path, transform) => {
