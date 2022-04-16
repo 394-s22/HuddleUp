@@ -1,15 +1,15 @@
-import { Navbar, Container, Button } from 'react-bootstrap';
+import { Navbar, Container, Button, ButtonGroup } from 'react-bootstrap';
 
 
-const NavBar = (checked, setChecked) => {
-    
+const NavBar = ({setChecked}) => {
+
 
     return(
         <Navbar fixed = "bottom" bg="dark">
             <Container>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"></Navbar.Toggle>
-                <Button>Home</Button>
-                <Button>My Events</Button>
+                    <Button onClick = {() => setChecked(false)} active>Home</Button>
+                    <Button onClick = {() => setChecked(true)} active>My Events</Button>
             </Container>
         </Navbar>
     )
