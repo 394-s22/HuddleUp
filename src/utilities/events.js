@@ -1,18 +1,6 @@
-import { useData, setData, pushData } from "../utilities/firebase";
+import { pushData } from "../utilities/firebase";
 
-// const gameRef = push(ref(database, 'games'), {
-//     date: '5/9/2019'
-//     teams: ['Cincinnati Reds', 'Oakland Athletics'],
-//     score: [3, 0]
-//   });
-
-// const uniqueID = () => {
-//     // get .key from firebase push --> does this happen in firebase.js in pushData()
-//     // or randomly generated number multiplied by Date.now
-//     Math.floor(Math.random() * Date.now())
-// }
-
-const createEvent = (title, description, sport, host, location, min_players, max_players,
+export const createEvent = (title, description, sport, host, location, min_players, max_players,
     current_players, date, start_time, end_time) => {
 
     const newEvent = 
@@ -32,6 +20,5 @@ const createEvent = (title, description, sport, host, location, min_players, max
     };
 
     pushData("/events", newEvent);
-    // const pushRef = pushData("/events", newEvent);
     
 }

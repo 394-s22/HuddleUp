@@ -1,13 +1,6 @@
 import { useState } from 'react';
 import { signInWithGoogle, signOut, useUserState } from '../utilities/firebase';
 import { Button, Stack, Form } from 'react-bootstrap';
-// import { setData } from "../utilities/firebase";
-
-// const addUser = async (user) => {
-//   try {
-//     await setData()
-//   }
-// }
 
 const SearchBar = ({ checked, setSearchText, setChecked }) => {
   const [user] = useUserState();
