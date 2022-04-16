@@ -9,7 +9,7 @@ import { Button, Stack, Form } from 'react-bootstrap';
 //   }
 // }
 
-const SearchBar = ({ checked, setSearchText, setChecked }) => {
+const SearchBar = ({ setSearchText }) => {
   const [user] = useUserState();
 
   return (
@@ -30,17 +30,6 @@ const SearchBar = ({ checked, setSearchText, setChecked }) => {
           {user ? "Sign Out" : "Sign In"}
         </Button>
       </Stack>
-      <Form.Check
-        type="checkbox"
-        label="My Events"
-        style={{ textAlign: "left",
-                 display: user ? null : 'none'}}
-        onChange={() => {
-          const nextState = checked ? false : true;
-          setChecked(nextState);
-        }}
-      >
-      </Form.Check>
     </div>
   )
 }

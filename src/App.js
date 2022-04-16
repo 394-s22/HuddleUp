@@ -2,6 +2,7 @@ import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import fakeEvents from './fakeEvents.json';
 import EventsList from './components/EventsList';
+import NavBar from './components/NavBar';
 import { useEffect, useState } from 'react';
 import { useData } from './utilities/firebase';
 
@@ -24,6 +25,8 @@ const App = () => {
         <div className='App'>
         <EventsList events={curEvents} setEventsList={setEventsList}/>
       </div>
+        <br />
+        <br />
     </>
   );
 };
