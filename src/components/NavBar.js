@@ -1,9 +1,7 @@
-import { Navbar, Container, Button, ButtonGroup } from 'react-bootstrap';
+import { Navbar, Container, Button } from 'react-bootstrap';
 
 
 const NavBar = ({setChecked}) => {
-
-
     return(
         <Navbar fixed = "bottom" bg="dark">
             <Container>

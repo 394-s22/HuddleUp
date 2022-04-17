@@ -1,7 +1,7 @@
 import { useState, render, useRef } from 'react';
 import { useUserState } from '../utilities/firebase';
 import { Card, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
-import { useData, setData } from "../utilities/firebase";
+import { setData } from "../utilities/firebase";
 
 const joinEvent = async (event) => {
   try {
