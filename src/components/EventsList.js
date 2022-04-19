@@ -10,7 +10,7 @@ const EventsList = ({ events, setEventsList }) => {
   const [checked, setChecked] = useState(false);
   const [user] = useUserState();
   const filteredEvents = Object.values(events).filter(event =>
-    (event.title +
+    String(event.title +
     event.description +
     event.sport +
     event.host +
