@@ -3,7 +3,6 @@ import { Button, Stack, Form } from 'react-bootstrap';
 
 const SearchBar = ({ setSearchText }) => {
   const [user] = useUserState();
-
   return (
     <div>
       <Stack direction="horizontal" gap={3}>
@@ -11,6 +10,7 @@ const SearchBar = ({ setSearchText }) => {
           className="me-auto"
           placeholder="Search events..."
           onChange={(e) => setSearchText(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' ? setSearchText(e.target.value) : null}
         />
         <Button
           variant="primary"
