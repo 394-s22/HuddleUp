@@ -8,7 +8,7 @@ const NavBar = ({setChecked, setSearchText}) => {
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"></Navbar.Toggle>
                     <Button onClick = {() => {setChecked(false); setSearchText('')}} active>Home</Button>
                     <PostButton/>
-                    <Button onClick = {() => setChecked(true)} active>My Events</Button>
+                    <Button onClick = {() => {setChecked(true); setSearchText('')}} active>My Events</Button>
 
             </Container>
         </Navbar>
