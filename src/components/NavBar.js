@@ -1,15 +1,22 @@
 import { Navbar, Container, Button } from 'react-bootstrap';
 import PostButton from './CreateEvent';
 
-const NavBar = ({setChecked, setSearchText}) => {
-    return(
-        <Navbar fixed = "bottom" bg="dark">
+const homeHandler = ({ setChecked, setSearchText }) => {
+    setChecked(false);
+    setSearchText('');
+    const searchBar = document.getElementById('searchbar');
+    searchBar.value = '';
+}
+
+const NavBar = ({ setChecked, setSearchText }) => {
+    return (
+        <Navbar fixed="bottom" bg="dark">
             <Container>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"></Navbar.Toggle>
-                    <Button onClick = {() => {setChecked(false); setSearchText('')}} active>Home</Button>
-                    <PostButton/>
-                    <Button onClick = {() => setChecked(true)} active>My Events</Button>
-
+                <Button onClick={() => homeHandler({ setChecked, setSearchText })}
+                    active>Home</Button>
+                <PostButton />
+                <Button onClick={() => setChecked(true)} active>My Events</Button>
             </Container>
         </Navbar>
     )

@@ -7,6 +7,7 @@ const SearchBar = ({ setSearchText }) => {
     <div>
       <Stack direction="horizontal" gap={3}>
         <Form.Control
+          id="searchbar"
           className="me-auto"
           placeholder="Search events..."
           onChange={(e) => setSearchText(e.target.value)}
