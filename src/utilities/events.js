@@ -17,6 +17,7 @@ export const createEvent = (title, description, sport, host, location, min_playe
         "date": date,
         "start_time": start_time,
         "end_time": end_time,
+        "join_status": false
     };
 
     pushData("/events", newEvent);
