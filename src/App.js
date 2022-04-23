@@ -27,6 +27,8 @@ const App = () => {
       <div className='App'>
         <EventsList events={curEvents} setEventsList={setEventsList} userData={userData} />
       </div>
+        <br />
+        <br />
     </>
   );
 };

@@ -1,17 +1,17 @@
-import { useState } from 'react';
 import { signInWithGoogle, signOut, useUserState } from '../utilities/firebase';
 import { Button, Stack, Form } from 'react-bootstrap';
 
-const SearchBar = ({ checked, setSearchText, setChecked }) => {
+const SearchBar = ({ setSearchText }) => {
   const [user] = useUserState();
-
   return (
     <div>
       <Stack direction="horizontal" gap={3}>
         <Form.Control
+          id="searchbar"
           className="me-auto"
           placeholder="Search events..."
           onChange={(e) => setSearchText(e.target.value)}
+          onKeyPress={(e) => e.key === 'Enter' ? setSearchText(e.target.value) : null}
         />
         <Button
           variant="primary"
@@ -23,17 +23,6 @@ const SearchBar = ({ checked, setSearchText, setChecked }) => {
           {user ? "Sign Out" : "Sign In"}
         </Button>
       </Stack>
-      <Form.Check
-        type="checkbox"
-        label="My Events"
-        style={{ textAlign: "left",
-                 display: user ? null : 'none'}}
-        onChange={() => {
-          const nextState = checked ? false : true;
-          setChecked(nextState);
-        }}
-      >
-      </Form.Check>
     </div>
   )
 }

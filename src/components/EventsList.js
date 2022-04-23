@@ -1,14 +1,16 @@
 import { useState } from 'react';
 import { Stack } from 'react-bootstrap';
+import { useUserState } from '../utilities/firebase';
 import Event from './Event';
-
+import NavBar from './NavBar';
 import SearchBar from './SearchBar';
 
 const EventsList = ({ events, setEventsList, userData }) => {
   const [searchText, setSearchText] = useState('');
   const [checked, setChecked] = useState(false);
+  const [user] = useUserState();
   const filteredEvents = Object.values(events).filter(event =>
-    (event.title +
+    String(event.title +
     event.description +
     event.sport +
     event.host +
@@ -17,6 +19,7 @@ const EventsList = ({ events, setEventsList, userData }) => {
   return (
     <Stack direction="vertical" gap={3}>
       <SearchBar checked = {checked} setSearchText={setSearchText} setChecked={setChecked}/>
+      {user ? <NavBar setChecked = {setChecked} setSearchText = {setSearchText}/> : null}
     { filteredEvents.map(event => <Event key={ event.id } event={ event } setEventsList={setEventsList} userData={userData} />) }
     </Stack>
   )};
