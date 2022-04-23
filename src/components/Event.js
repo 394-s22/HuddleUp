@@ -3,13 +3,15 @@ import { useUserState } from '../utilities/firebase';
 import { Card, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { useData, setData } from "../utilities/firebase";
 
-const joinEvent = async (event) => {
+const joinEvent = async (user, userData, event) => {
   try {
+    //particular event id is in user's list 
     if(event.join_status){
-      await setData(`/events/${event.id}/join_status`, false);
+      //await setData(`/events/${event.id}/join_status`, false);
       await setData(`/events/${event.id}/current_players`, event.current_players-1);
     } else {
-      await setData(`/events/${event.id}/join_status`, true);
+      //await setData(`/events/${event.id}/join_status`, true);
+      await setData(`/users/${user.uid}/joined_events`, userData.joined_events ? userData.joined_events.push(event.id) : [event.id]);
       await setData(`/events/${event.id}/current_players`, event.current_players+1);
     }
   } catch (error) {
@@ -23,7 +25,7 @@ const renderTooltip = (props) => (
     </Tooltip>
   );
 
-const Event = ({ event, setEventsList }) => {  
+const Event = ({ event, setEventsList, userData }) => {  
   const [joined, setJoined] = useState(event.join_status);
   const [user] = useUserState();
   // const target = useRef(null);
@@ -36,11 +38,11 @@ const Event = ({ event, setEventsList }) => {
     // edit 'join_status' property for that event
     if (event.join_status) {
       setJoined(false);
-      joinEvent(event);
+      joinEvent(user, userData, event);
     }
     else {
       setJoined(true);
-      joinEvent(event);
+      joinEvent(user, userData, event);
     };
   };
 
