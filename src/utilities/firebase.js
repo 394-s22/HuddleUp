@@ -58,11 +58,22 @@ export const signInWithGoogle = () => {
 const firebaseSignOut = () => signOut(getAuth(firebase));
 export { firebaseSignOut as signOut };
 
-export const useUserState = () => {
+
+export const useUserState = (setUserData) => {
   const [user, setUser] = useState();
 
   useEffect(() => {
     onIdTokenChanged(getAuth(firebase), setUser);
   }, []);
+
+  useEffect(() => {
+    if (user){
+      setData(`/users/${user.uid}/id`, user.uid);
+      setData(`/users/${user.uid}/joined_events`, ["-1"]);
+      setData(`/users/${user.uid}/host_events`, ["-1"]);
+    }
+  
+  }, [user]);
+
   return [user];
 };

@@ -6,12 +6,13 @@ import { setData } from "../utilities/firebase";
 const joinEvent = async (user, userData, event) => {
   try {
     //particular event id is in user's list 
-    if(event.join_status){
+    console.log(userData);
+    if(userData.joined_events.includes(event.id)){
       //await setData(`/events/${event.id}/join_status`, false);
       await setData(`/events/${event.id}/current_players`, event.current_players-1);
     } else {
       //await setData(`/events/${event.id}/join_status`, true);
-      await setData(`/users/${user.uid}/joined_events`, userData.joined_events ? userData.joined_events.push(event.id) : [event.id]);
+      await setData(`/users/${user.uid}/joined_events`, /*userData.joined_events !== null ? userData.joined_events.push(event.id) :*/ [event.id]);
       await setData(`/events/${event.id}/current_players`, event.current_players+1);
     }
   } catch (error) {
