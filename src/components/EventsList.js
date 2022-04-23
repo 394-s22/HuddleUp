@@ -9,12 +9,16 @@ const EventsList = ({ events, setEventsList, userData }) => {
   const [searchText, setSearchText] = useState('');
   const [checked, setChecked] = useState(false);
   const [user] = useUserState();
+
+  const joined_condition = (event) => {return user && userData && userData[user.uid].joined_events && 
+    userData[user.uid].joined_events.includes(event.id); };
+
   const filteredEvents = Object.values(events).filter(event =>
     String(event.title +
     event.description +
     event.sport +
     event.host +
-    event.location).toLowerCase().includes(searchText.toLowerCase())).filter(checked ? e => e.join_status : e => true );
+    event.location).toLowerCase().includes(searchText.toLowerCase())).filter(checked ? joined_condition : e => true );
 
   return (
     <Stack direction="vertical" gap={3}>

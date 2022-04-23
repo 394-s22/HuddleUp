@@ -12,16 +12,12 @@ const Banner = ({ title }) => (
 const App = () => {
   const [eventsList, setEventsList, loading] = useData("/events");
   const user = useUserState();
-  const [userData, setUserData, loadingUser] = useData(`/users/${user.uid}`);
+  const [userData, setUserData, loadingUser] = useData(`/users`);
 
   const [curEvents, setCurEvents] = useState([]);
   useEffect(() => {
     setCurEvents(eventsList);
   }, [eventsList]);
-
-  useEffect(() => {
-
-  }, user);
 
   if (loading) return <h1>Loading...</h1>;
 
