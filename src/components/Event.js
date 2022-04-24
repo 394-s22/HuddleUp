@@ -1,15 +1,26 @@
 import { useState, render, useRef } from 'react';
 import { useUserState } from '../utilities/firebase';
 import { Card, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
-import { setData } from "../utilities/firebase";
+import { setData, getData } from "../utilities/firebase";
 
-const joinEvent = async (event) => {
+const joinEvent = async (user, userData, event) => {
   try {
-    if(event.join_status){
-      await setData(`/events/${event.id}/join_status`, false);
+    const userId = user.uid;
+    const joined_events = userData[userId].joined_events;
+    const host_events = userData[userId].host_events;
+
+    if(joined_events && joined_events.includes(event.id)){
+      //var newEvents = joined_events.filter(e => e !== event.id); 
       await setData(`/events/${event.id}/current_players`, event.current_players-1);
+      await setData(`/users/${user.uid}/joined_events`, joined_events.filter( e => e !== event.id));
     } else {
-      await setData(`/events/${event.id}/join_status`, true);
+      var newEvents = [event.id];
+      if(joined_events != undefined && joined_events.length != 0) {
+        joined_events.push(event.id);
+        newEvents = joined_events;
+      }
+
+      await setData(`/users/${user.uid}/joined_events`, newEvents);
       await setData(`/events/${event.id}/current_players`, event.current_players+1);
     }
   } catch (error) {
@@ -23,7 +34,7 @@ const renderTooltip = (props) => (
     </Tooltip>
   );
 
-const Event = ({ event, setEventsList }) => {  
+const Event = ({ event, setEventsList, userData }) => {  
   const [joined, setJoined] = useState(event.join_status);
   const [user] = useUserState();
   // const target = useRef(null);
@@ -36,14 +47,19 @@ const Event = ({ event, setEventsList }) => {
     // edit 'join_status' property for that event
     if (event.join_status) {
       setJoined(false);
-      joinEvent(event);
+      joinEvent(user, userData, event);
     }
     else {
       setJoined(true);
-      joinEvent(event);
+      joinEvent(user, userData, event);
     };
   };
 
+  const joined_condition = user && userData && userData[user.uid].joined_events && 
+    userData[user.uid].joined_events.includes(event.id);
+
+  const playerList = userData ? Object.values(userData).filter( (user) => user.joined_events && user.joined_events.includes(event.id)).map( (user) => user.displayName) : [];
+  
   return (
     <Card style={{ textAlign: 'left' }}>
       <Card.Body>
@@ -53,6 +69,9 @@ const Event = ({ event, setEventsList }) => {
         <Card.Subtitle className="mb-2 text-muted">Minimum Players: {event.min_players} </Card.Subtitle>
         <Card.Subtitle className="mb-2 text-muted">
           Players Signed Up: {event.current_players}/{event.max_players}
+        </Card.Subtitle>
+        <Card.Subtitle className="mb-2 text-muted">
+          Players Attending: {playerList.toString()}
         </Card.Subtitle>
         <Card.Subtitle className="mb-2 text-muted">
           Date: {event.date}: {event.start_time} - {event.end_time}
@@ -72,8 +91,8 @@ const Event = ({ event, setEventsList }) => {
               variant="primary"
               onClick={() => handleJoin()}
               disabled={event.current_players >= event.max_players || !user}
-              style={{backgroundColor: user && event.join_status ? '#c71c13' : '#0d6efd'}}
-            >{ user && event.join_status ? 'Leave' : 'Join' }
+              style={{backgroundColor: joined_condition ? '#c71c13' : '#0d6efd'}}
+            >{ user && joined_condition ? 'Leave' : 'Join' }
             </Button>
           </span>
         </OverlayTrigger>

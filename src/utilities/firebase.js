@@ -1,6 +1,6 @@
 import { initializeApp } from 'firebase/app';
 import { useState, useEffect } from 'react';
-import { getDatabase, onValue, ref, set, push } from 'firebase/database';
+import { getDatabase, onValue, ref, set, get, push } from 'firebase/database';
 import { getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut } from 'firebase/auth';
 
 
@@ -25,6 +25,15 @@ export const setData = (path, value) => (
 export const pushData = (path, value) => (
   push(ref(database, path), value)
 );
+
+export const getData = async (path) => {
+  const snap = await get(ref(database, path));
+  if(snap.exists()) {
+    return snap.val();
+  } else {
+    return null;
+  }
+};
 
 export const useData = (path, transform) => {
   const [data, setData] = useState();
@@ -58,11 +67,21 @@ export const signInWithGoogle = () => {
 const firebaseSignOut = () => signOut(getAuth(firebase));
 export { firebaseSignOut as signOut };
 
-export const useUserState = () => {
+
+export const useUserState = (setUserData) => {
   const [user, setUser] = useState();
 
   useEffect(() => {
     onIdTokenChanged(getAuth(firebase), setUser);
   }, []);
+
+  useEffect(() => {
+    if (user){
+      setData(`/users/${user.uid}/id`, user.uid);
+      setData(`/users/${user.uid}/displayName`, user.displayName);
+    }
+  
+  }, [user]);
+
   return [user];
 };
