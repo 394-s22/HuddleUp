@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Modal, Form, Button, InputGroup } from "react-bootstrap";
+import { Modal, Form, Button, FloatingLabel, Row, Col } from "react-bootstrap";
 import { createEvent } from '../utilities/events.js';
 
 const PostButton = () => {
@@ -12,25 +12,23 @@ const PostButton = () => {
   const [location, setLocation] = useState('');
   const [minPlayers, setMinPlayers] = useState('');
   const [maxPlayers, setMaxPlayers] = useState('');
-  const [startDate, setStartDate] = useState('');
+  const [date, setDate] = useState('');
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [description, setDescription] = useState('');
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
-  const onSubmit = () => {
-
+  const handleSubmit = (e) => {
     createEvent(title, description, sport, host, location, minPlayers, maxPlayers,
-      0, startDate, startTime, endTime);
+      0, date, startTime, endTime);
     
     handleClose();
   }
 
   const onNumberInput = e => {
     // replace non-digits with blank
-    let value = e.target.value.replace(/[^\d]/, '');
-    value = value.replaceAll('-', '');
+    const value = e.target.value.replace(/[^\d]/, '');
 
     // type check
     if (isNaN(parseInt(value)) && value !== '') return;
@@ -57,99 +55,109 @@ const PostButton = () => {
           <Modal.Title>Post an event</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <Form.Group className="mb-3" controlId="postEvent.eventTitle">
-              <Form.Label>Event Title</Form.Label>
+          <Form onSubmit={handleSubmit}>
+            <FloatingLabel controlId="postEvent.eventTitle" label="Event Title" className="mb-3">
               <Form.Control
+                required  
                 type="text"
+                placeholder="..."
                 value={title}
                 onChange={(e) => setTitle(e.target.value)}
-                autoFocus
               />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="postEvent.hostName">
-              <Form.Label>Host</Form.Label>
+            </FloatingLabel>
+            <FloatingLabel className="mb-3" controlId="postEvent.hostName" label="Host">
               <Form.Control
+                required  
                 type="text"
-                placeholder="Host Name"
+                placeholder="..."
                 value={host}
                 onChange={(e) => setHost(e.target.value)} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="postEvent.hostName">
-              <Form.Label>Sport</Form.Label>
+            </FloatingLabel>
+            <FloatingLabel className="mb-3" controlId="postEvent.sport" label="Sport">
               <Form.Control
+                required  
                 type="text"
-                placeholder="Sport Type"
+                placeholder="..."
                 value={sport}
                 onChange={(e) => setSport(e.target.value)} />
-            </Form.Group>
-            <Form.Group className="mb-3" controlId="postEvent.location">
-              <Form.Label>Location</Form.Label>
+            </FloatingLabel>
+            <FloatingLabel className="mb-3" controlId="postEvent.location" label="Location">
               <Form.Control
+                required  
                 type="text"
-                placeholder="(e.g, Deering Meadow)"
+                placeholder="..."
                 value={location}
                 onChange={(e) => setLocation(e.target.value)}
               />
-            </Form.Group>
-            <InputGroup size="sm" className="mb-3">
-              <Form.Group className="w-50" controlId="postEvent.minPlayers">
-                <Form.Label>Min Players</Form.Label>
-                <Form.Control
-                  type="text"
-                  value={minPlayers}
-                  min={2}
-                  max={maxPlayers}
-                  onChange={(e) => onNumberInput(e)} />
-              </Form.Group>
-              <Form.Group className="w-50"  controlId="postEvent.maxPlayers">
-                <Form.Label>Max Players</Form.Label>
-                <Form.Control
-                  type="text"
-                  min={minPlayers}
-                  value={maxPlayers}
-                  onChange={(e) => onNumberInput(e)} />
-              </Form.Group>
-            </InputGroup>
-            <Form.Group className="mb-3" controlId="postEvent.startDate">
-              <Form.Label>Date</Form.Label>
+            </FloatingLabel>
+            <Row className="mb-3">
+              <Col>
+                <FloatingLabel controlId="postEvent.minPlayers" label="Minimum Players">
+                  <Form.Control
+                    required  
+                    type="text"
+                    placeholder="..."
+                    value={minPlayers}
+                    min={2}
+                    max={maxPlayers}
+                    onChange={(e) => onNumberInput(e)} />
+                </FloatingLabel>
+              </Col>
+              <Col>
+                <FloatingLabel controlId="postEvent.maxPlayers" label="Maximum Players">
+                  <Form.Control
+                    required  
+                    type="text"
+                    placeholder="..."
+                    min={minPlayers}
+                    value={maxPlayers}
+                    onChange={(e) => onNumberInput(e)} />
+                </FloatingLabel>
+              </Col>
+            </Row>
+            <FloatingLabel className="mb-3" controlId="postEvent.date" label="Date">
               <Form.Control
+                required  
                 type="date"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)} />
-            </Form.Group>
-            <InputGroup className="mb-3">
-              <Form.Group className="w-50" controlId="postEvent.startTime">
-                <Form.Label>Start Time</Form.Label>
-                <Form.Control type="time"
-                  value={startTime}
-                  onChange={(e) => setStartTime(e.target.value)} />
-              </Form.Group>
-              <Form.Group className="w-50" controlId="postEvent.endTime">
-                <Form.Label>End Time</Form.Label>
-                <Form.Control type="time"
-                  value={endTime}
-                  onChange={(e) => setEndTime(e.target.value)} />
-              </Form.Group>
-            </InputGroup>
-
-            <Form.Group className="mb-3" controlId="postEvent.description">
-              <Form.Label>Description</Form.Label>
+                value={date}
+                onChange={(e) => setDate(e.target.value)} />
+            </FloatingLabel>
+            <Row className="mb-3">
+              <Col>
+                <FloatingLabel controlId="postEvent.startTime" label="Start">
+                  <Form.Control 
+                    required
+                    type="time"
+                    value={startTime}
+                    onChange={(e) => setStartTime(e.target.value)} />
+                </FloatingLabel>
+              </Col>
+              <Col>
+                <FloatingLabel controlId="postEvent.endTime" label="End">
+                  <Form.Control 
+                    required
+                    type="time"
+                    value={endTime}
+                    onChange={(e) => setEndTime(e.target.value)} />
+                </FloatingLabel>
+              </Col>
+            </Row>
+            <FloatingLabel className="mb-3" controlId="postEvent.description" label="Description">
               <Form.Control
+                required  
                 as="textarea"
+                placeholder="..."
                 value={description}
                 onChange={(e) => setDescription(e.target.value)} />
-            </Form.Group>
+            </FloatingLabel>
+            <Row className="align-items-right">
+              <Col style={{ textAlign: 'right' }}>
+                <Button className="mx-2" onClick={handleClose} variant="secondary">Close</Button>
+                <Button type="submit" variant="primary">Post event</Button>
+              </Col>
+            </Row>
           </Form>
         </Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={onSubmit}>
-            Post event
-          </Button>
-        </Modal.Footer>
       </Modal>
     </>
   );
