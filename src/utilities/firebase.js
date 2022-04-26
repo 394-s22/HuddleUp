@@ -22,13 +22,9 @@ export const setData = (path, value) => (
   set(ref(database, path), value)
 );
 
-export const pushData = (path, value) => (
-  push(ref(database, path), value)
-);
-
 export const getData = async (path) => {
   const snap = await get(ref(database, path));
-  if(snap.exists()) {
+  if (snap.exists()) {
     return snap.val();
   } else {
     return null;
@@ -76,11 +72,11 @@ export const useUserState = (setUserData) => {
   }, []);
 
   useEffect(() => {
-    if (user){
+    if (user) {
       setData(`/users/${user.uid}/id`, user.uid);
       setData(`/users/${user.uid}/displayName`, user.displayName);
     }
-  
+
   }, [user]);
 
   return [user];
