@@ -7,6 +7,7 @@ const joinEvent = async (user, userData, event) => {
   try {
     const userId = user.uid;
     const joined_events = userData[userId].joined_events;
+    
 
     if (joined_events && joined_events.includes(event.id)) {
       await setData(`/events/${event.id}/current_players`, event.current_players - 1);
