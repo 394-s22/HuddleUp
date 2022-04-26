@@ -1,28 +1,25 @@
-import { useState, render, useRef } from 'react';
 import { useUserState } from '../utilities/firebase';
 import { Card, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
-import { setData, getData } from "../utilities/firebase";
+import { setData } from "../utilities/firebase";
 import { hasConflict } from '../utilities/times';
 
 const joinEvent = async (user, userData, event) => {
   try {
     const userId = user.uid;
     const joined_events = userData[userId].joined_events;
-    const host_events = userData[userId].host_events;
 
-    if(joined_events && joined_events.includes(event.id)){
-      //var newEvents = joined_events.filter(e => e !== event.id); 
-      await setData(`/events/${event.id}/current_players`, event.current_players-1);
-      await setData(`/users/${user.uid}/joined_events`, joined_events.filter( e => e !== event.id));
+    if (joined_events && joined_events.includes(event.id)) {
+      await setData(`/events/${event.id}/current_players`, event.current_players - 1);
+      await setData(`/users/${user.uid}/joined_events`, joined_events.filter(e => e !== event.id));
     } else {
       var newEvents = [event.id];
-      if(joined_events != undefined && joined_events.length != 0) {
+      if (joined_events !== undefined && joined_events.length !== 0) {
         joined_events.push(event.id);
         newEvents = joined_events;
       }
 
       await setData(`/users/${user.uid}/joined_events`, newEvents);
-      await setData(`/events/${event.id}/current_players`, event.current_players+1);
+      await setData(`/events/${event.id}/current_players`, event.current_players + 1);
     }
   } catch (error) {
     alert(error);
@@ -30,46 +27,33 @@ const joinEvent = async (user, userData, event) => {
 };
 
 const renderTooltip = (props) => (
-    <Tooltip id="button-tooltip" {...props}>
-      Sign in to join events!
-    </Tooltip>
-  );
+  <Tooltip id="button-tooltip" {...props}>
+    Sign in to join events!
+  </Tooltip>
+);
 
-const Event = ({ event, events, userData }) => {  
-  const [joined, setJoined] = useState(event.join_status);
+const Event = ({ event, events, userData }) => {
   const [user] = useUserState();
-  // const target = useRef(null);
-  // const [show, setShow] = useState(user);
 
-  const handleJoin = () => {
-    // edit list of joined events; how to keep track of this list across components?
-    // need to pass down the list of joined events from App.js?
-    // increment number of current players
-    // edit 'join_status' property for that event
-    if (event.join_status) {
-      setJoined(false);
-      joinEvent(user, userData, event);
-    }
-    else {
-      setJoined(true);
-      joinEvent(user, userData, event);
-    };
-  };
+  const signedIn = user && userData && userData[user.uid].joined_events;
+  
+  const joinedEvents = signedIn ?
+    Object.values(events).filter(event => userData[user.uid].joined_events.includes(event.id)) : [];
 
-  const joinedEvents = user && userData && userData[user.uid].joined_events ? 
-                       Object.values(events).filter(event => userData[user.uid].joined_events.includes(event.id)) : [];
-
-  const joined_condition = user && userData && userData[user.uid].joined_events && 
+  const joined_condition = signedIn &&
     userData[user.uid].joined_events.includes(event.id);
 
-  const playerList = userData ? Object.values(userData).filter( (user) => user.joined_events && user.joined_events.includes(event.id)).map( (user) => user.displayName) : [];
+  const playerList = userData ? Object.values(userData).filter((user) =>
+    user.joined_events && user.joined_events.includes(event.id)).map((user) => user.displayName) : [];
 
-  const isJoined = user && userData && userData[user.uid].joined_events ? 
-                   userData[user.uid].joined_events.includes(event.id) : false;
+  const isJoined = signedIn ? userData[user.uid].joined_events.includes(event.id) : false;
 
-  const isDisabled = !isJoined && event.current_players >= event.max_players || !user || !isJoined && hasConflict(event, joinedEvents);
-  
-  const style = {textAlign: 'left', backgroundColor: isDisabled ? 'lightgrey' : 'white'}
+  const isFull = event.current_players >= event.max_players;
+
+  const isDisabled = (!isJoined && isFull) || !user || (!isJoined && hasConflict(event, joinedEvents));
+
+  const style = { textAlign: 'left', 
+                  backgroundColor: isDisabled ? 'lightgrey' : 'white' };
   return (
     <Card style={style}>
       <Card.Body>
@@ -90,23 +74,22 @@ const Event = ({ event, events, userData }) => {
           {event.description}
         </Card.Text>
 
-
         <OverlayTrigger
           placement="right"
           delay={{ show: 250, hide: 400 }}
-          overlay= {!user ? renderTooltip : (props) => (<span></span>)}
+          overlay={!user ? renderTooltip : (props) => (<span></span>)}
         >
-          <span>            
+          <span>
             <Button
               variant="primary"
-              onClick={() => handleJoin()}
+              onClick={() => joinEvent(user, userData, event)}
               disabled={isDisabled}
-              style={{backgroundColor: joined_condition ? '#c71c13' : '#0d6efd'}}
-            >{ user && joined_condition ? 'Leave' : 'Join' }
+              style={{ backgroundColor: joined_condition ? '#c71c13' : '#0d6efd' }}
+            >{user && joined_condition ? 'Leave' : 'Join'}
             </Button>
           </span>
         </OverlayTrigger>
-        
+
       </Card.Body>
     </Card>
   );
