@@ -23,3 +23,14 @@ const timeOverlap = (event1Start, event1End, event2Start, event2End) => {
     // logic
     return Math.max(event1StartTime, event2StartTime) < Math.min(event1EndTime, event2EndTime)
 }
+
+const eventConflict = (event1, event2) => (
+    daysOverlap(event1.date, event2.date) 
+    && timeOverlap(event1.start_time, event1.end_time,
+                   event2.start_time, event2.end_time)
+)
+
+
+export const hasConflict = (event, joinedEvents) => (
+    joinedEvents.some(joined => eventConflict(event, joined))
+  );

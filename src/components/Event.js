@@ -2,6 +2,7 @@ import { useState, render, useRef } from 'react';
 import { useUserState } from '../utilities/firebase';
 import { Card, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { setData, getData } from "../utilities/firebase";
+import { hasConflict } from '../utilities/times';
 
 const joinEvent = async (user, userData, event) => {
   try {
@@ -34,7 +35,7 @@ const renderTooltip = (props) => (
     </Tooltip>
   );
 
-const Event = ({ event, setEventsList, userData }) => {  
+const Event = ({ event, events, userData }) => {  
   const [joined, setJoined] = useState(event.join_status);
   const [user] = useUserState();
   // const target = useRef(null);
@@ -55,13 +56,22 @@ const Event = ({ event, setEventsList, userData }) => {
     };
   };
 
+  const joinedEvents = user && userData && userData[user.uid].joined_events ? 
+                       Object.values(events).filter(event => userData[user.uid].joined_events.includes(event.id)) : [];
+
   const joined_condition = user && userData && userData[user.uid].joined_events && 
     userData[user.uid].joined_events.includes(event.id);
 
   const playerList = userData ? Object.values(userData).filter( (user) => user.joined_events && user.joined_events.includes(event.id)).map( (user) => user.displayName) : [];
+
+  const isJoined = user && userData && userData[user.uid].joined_events ? 
+                   userData[user.uid].joined_events.includes(event.id) : false;
+
+  const isDisabled = !isJoined && event.current_players >= event.max_players || !user || !isJoined && hasConflict(event, joinedEvents);
   
+  const style = {textAlign: 'left', backgroundColor: isDisabled ? 'lightgrey' : 'white'}
   return (
-    <Card style={{ textAlign: 'left' }}>
+    <Card style={style}>
       <Card.Body>
         <Card.Title>{event.title}</Card.Title>
         <Card.Subtitle className="mb-2 text-muted">Host: {event.host} </Card.Subtitle>
@@ -90,7 +100,7 @@ const Event = ({ event, setEventsList, userData }) => {
             <Button
               variant="primary"
               onClick={() => handleJoin()}
-              disabled={event.current_players >= event.max_players || !user}
+              disabled={isDisabled}
               style={{backgroundColor: joined_condition ? '#c71c13' : '#0d6efd'}}
             >{ user && joined_condition ? 'Leave' : 'Join' }
             </Button>
