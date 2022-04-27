@@ -27,8 +27,23 @@ const joinEvent = async (user, userData, event) => {
 };
 
 const renderTooltip = (props) => (
+  // can't join due to lack of sign in
   <Tooltip id="button-tooltip" {...props}>
     Sign in to join events!
+  </Tooltip>
+);
+
+const renderTooltipFull = (props) => (
+  // can't join due to event being full
+  <Tooltip id="button-tooltip" {...props}>
+    This event is full!
+  </Tooltip>
+);
+
+const renderTooltipTime = (props) => (
+  // can't join due to time conflict
+  <Tooltip id="button-tooltip" {...props}>
+    You have joined another event that conflicts with this one!
   </Tooltip>
 );
 
@@ -77,8 +92,12 @@ const Event = ({ event, events, userData }) => {
         <OverlayTrigger
           placement="right"
           delay={{ show: 250, hide: 400 }}
-          overlay={!user ? renderTooltip : (props) => (<span></span>)}
-        >
+          overlay={(props) => {
+            if (!user) return renderTooltip(props);
+            else if (isFull) return renderTooltipFull(props);
+            else if (!isJoined && hasConflict(event, joinedEvents)) return renderTooltipTime(props);
+            else return (<span></span>);
+          }}>
           <span>
             <Button
               variant="primary"
