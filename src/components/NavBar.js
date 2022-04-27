@@ -16,7 +16,12 @@ const NavBar = ({ setSearchText, setCurrentPage }) => {
                 <Button onClick={() => homeHandler({ setSearchText, setCurrentPage })}
                     active>Home</Button>
                 <PostButton />
-                <Button onClick={() => setCurrentPage('myevents')} active>My Events</Button>
+                <Button onClick={() => {
+                    setCurrentPage('myevents');
+                    setSearchText('');
+                    const searchBar = document.getElementById('searchbar');
+                    searchBar.value = '';
+                }} active>My Events</Button>
             </Container>
         </Navbar>
     )
