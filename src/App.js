@@ -41,7 +41,7 @@ const App = () => {
         </div> :
         
         <div className='App'>
-          <SearchBar setSearchText={setSearchText}/>
+          <SearchBar setSearchText={setSearchText} setCurrentPage={setCurrentPage} setFilterCondition={setFilterCondition}/>
           <br />
           <Button
             variant="primary"

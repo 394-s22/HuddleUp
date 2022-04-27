@@ -17,8 +17,19 @@ const PostButton = () => {
   const [startTime, setStartTime] = useState('');
   const [endTime, setEndTime] = useState('');
   const [description, setDescription] = useState('');
-  const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
+  const handleClose = () => {
+    setShow(false);
+    setTitle('');
+    setHost('');
+    setLocation('');
+    setMinPlayers('');
+    setMaxPlayers('');
+    setDate('');
+    setStartTime('');
+    setEndTime('');
+    setDescription('');
+  }
 
   const [user] = useUserState();
 

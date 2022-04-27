@@ -65,7 +65,7 @@ const Event = ({ event, events, userData }) => {
 
   const isFull = event.current_players >= event.max_players;
 
-  const isDisabled = (!isJoined && isFull) || !user || (!isJoined && hasConflict(event, joinedEvents));
+  const isDisabled = (!isJoined && isFull) || (!isJoined && hasConflict(event, joinedEvents));
 
   const style = { textAlign: 'left', 
                   backgroundColor: isDisabled ? 'lightgrey' : 'white' };
@@ -102,7 +102,7 @@ const Event = ({ event, events, userData }) => {
             <Button
               variant="primary"
               onClick={() => joinEvent(user, userData, event)}
-              disabled={isDisabled}
+              disabled={!user || isDisabled}
               style={{ backgroundColor: joined_condition ? '#c71c13' : '#0d6efd' }}
             >{user && joined_condition ? 'Leave' : 'Join'}
             </Button>
