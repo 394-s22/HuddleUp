@@ -16,6 +16,7 @@ const PlayerList = ({playerList, isDisabled}) => {
         <Modal 
             show={show}
             onHide={handleClose}
+            scrollable={true}
             centered>
             <Modal.Header closeButton>
                 <Modal.Title>List of Attending Players</Modal.Title>
@@ -33,8 +34,11 @@ const PlayerList = ({playerList, isDisabled}) => {
                 ) : <p style={{textAlign: 'center'}}>
                         No current players. Be the first to join!
                     </p>
-            }
+                }
             </Modal.Body>
+            <Modal.Footer>
+                <Button variant="secondary" onClick={handleClose}>Close</Button>
+            </Modal.Footer>
         </Modal>
     </>
     )   
