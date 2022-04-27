@@ -32,7 +32,7 @@ const App = () => {
       <Banner title={fakeEvents.title} />
       { currentPage === 'home'?
         <div className='App'>
-          <SearchBar setSearchText={setSearchText}/>
+          <SearchBar setSearchText={setSearchText} setCurrentPage={setCurrentPage} setFilterCondition={setFilterCondition}/>
           <br />
           <EventsList events={curEvents} searchText={searchText} userData={userData} currentPage={currentPage} filterCondition={filterCondition}/>
           {user ? <NavBar setSearchText = {setSearchText} setCurrentPage={setCurrentPage}/> : null}
