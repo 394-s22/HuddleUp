@@ -1,16 +1,18 @@
 import { useState } from "react";
 import { Modal, Card, Button } from "react-bootstrap";
+import { useUserState } from '../utilities/firebase';
 
 const PlayerList = ({playerList, isDisabled}) => {
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
+    const [user] = useUserState();
     return (
     <>
         <Button style={{float: 'right'}} 
                 variant="primary" 
                 onClick={handleShow}
-                disabled={isDisabled}>
+                disabled={!user || isDisabled}>
             View Players
         </Button>
         <Modal 
