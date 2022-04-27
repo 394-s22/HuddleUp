@@ -80,7 +80,7 @@ const Event = ({ event, events, userData }) => {
           Players Signed Up: {event.current_players}/{event.max_players}
         </Card.Subtitle>
         <Card.Subtitle className="mb-2 text-muted">
-          Players Attending: {playerList.toString()}
+          Players Attending: {playerList.join(', ')}
         </Card.Subtitle>
         <Card.Subtitle className="mb-2 text-muted">
           Date: {event.date}: {event.start_time} - {event.end_time}

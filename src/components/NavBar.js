@@ -1,22 +1,22 @@
 import { Navbar, Container, Button } from 'react-bootstrap';
 import PostButton from './CreateEvent';
 
-const homeHandler = ({ setChecked, setSearchText }) => {
-    setChecked(false);
+const homeHandler = ({ setSearchText, setCurrentPage }) => {
     setSearchText('');
     const searchBar = document.getElementById('searchbar');
     searchBar.value = '';
+    setCurrentPage('home');
 }
 
-const NavBar = ({ setChecked, setSearchText }) => {
+const NavBar = ({ setSearchText, setCurrentPage }) => {
     return (
         <Navbar fixed="bottom" bg="dark">
             <Container>
                 <Navbar.Toggle aria-controls="responsive-navbar-nav"></Navbar.Toggle>
-                <Button onClick={() => homeHandler({ setChecked, setSearchText })}
+                <Button onClick={() => homeHandler({ setSearchText, setCurrentPage })}
                     active>Home</Button>
                 <PostButton />
-                <Button onClick={() => setChecked(true)} active>My Events</Button>
+                <Button onClick={() => setCurrentPage('myevents')} active>My Events</Button>
             </Container>
         </Navbar>
     )

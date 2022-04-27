@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Modal, Form, Button, FloatingLabel, Row, Col } from "react-bootstrap";
 import { createEvent } from '../utilities/events.js';
+import { useUserState } from "../utilities/firebase.js";
 
 const PostButton = () => {
   const [show, setShow] = useState(false);
@@ -19,9 +20,11 @@ const PostButton = () => {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
 
+  const [user] = useUserState();
+
   const handleSubmit = (e) => {
     createEvent(title, description, sport, host, location, minPlayers, maxPlayers,
-      0, date, startTime, endTime);
+      0, date, startTime, endTime, user);
     
     handleClose();
   }
@@ -43,7 +46,7 @@ const PostButton = () => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="primary" style={{backgroundColor: '#0a58ca'}} onClick={handleShow}>
         Post Event
       </Button>
 

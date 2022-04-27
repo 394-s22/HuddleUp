@@ -1,7 +1,7 @@
-import { setData } from "../utilities/firebase";
+import { setData, pushData } from "../utilities/firebase";
 
 export const createEvent = (title, description, sport, host, location, min_players, max_players,
-    current_players, date, start_time, end_time) => {
+    current_players, date, start_time, end_time, user) => {
 
     const newEvent =
     {
@@ -20,5 +20,5 @@ export const createEvent = (title, description, sport, host, location, min_playe
     };
 
     setData("/events/" + newEvent.id, newEvent);
-
+    pushData("/users/" + user.uid + "/hosted_events", newEvent.id);
 }
