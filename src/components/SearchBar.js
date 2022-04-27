@@ -1,8 +1,14 @@
 import { signInWithGoogle, signOut, useUserState } from '../utilities/firebase';
 import { Button, Stack, Form } from 'react-bootstrap';
 
-const SearchBar = ({ setSearchText }) => {
+const SearchBar = ({ setSearchText, setCurrentPage, setFilterCondition }) => {
   const [user] = useUserState();
+
+  const handleSignOut = () => {
+    setCurrentPage('home');
+    setFilterCondition('joined_events');
+    signOut();
+  }
   return (
     <div>
       <Stack direction="horizontal" gap={3}>
@@ -19,7 +25,7 @@ const SearchBar = ({ setSearchText }) => {
             width: "fit-content",
             whiteSpace: "nowrap"
           }}
-          onClick={() => user ? signOut() : signInWithGoogle()}>
+          onClick={() => user ? handleSignOut() : signInWithGoogle()}>
           {user ? "Sign Out" : "Sign In"}
         </Button>
       </Stack>

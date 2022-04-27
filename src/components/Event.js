@@ -2,6 +2,8 @@ import { useUserState } from '../utilities/firebase';
 import { Card, Button, Tooltip, OverlayTrigger } from 'react-bootstrap';
 import { setData } from "../utilities/firebase";
 import { hasConflict } from '../utilities/times';
+import { useState } from 'react';
+import PlayerList from './PlayerList';
 
 const joinEvent = async (user, userData, event) => {
   try {
@@ -65,7 +67,7 @@ const Event = ({ event, events, userData }) => {
 
   const isFull = event.current_players >= event.max_players;
 
-  const isDisabled = (!isJoined && isFull) || !user || (!isJoined && hasConflict(event, joinedEvents));
+  const isDisabled = (!isJoined && isFull) || (!isJoined && hasConflict(event, joinedEvents));
 
   const style = { textAlign: 'left', 
                   backgroundColor: isDisabled ? 'lightgrey' : 'white' };
@@ -78,9 +80,6 @@ const Event = ({ event, events, userData }) => {
         <Card.Subtitle className="mb-2 text-muted">Minimum Players: {event.min_players} </Card.Subtitle>
         <Card.Subtitle className="mb-2 text-muted">
           Players Signed Up: {event.current_players}/{event.max_players}
-        </Card.Subtitle>
-        <Card.Subtitle className="mb-2 text-muted">
-          Players Attending: {playerList.join(', ')}
         </Card.Subtitle>
         <Card.Subtitle className="mb-2 text-muted">
           Date: {event.date}: {event.start_time} - {event.end_time}
@@ -102,10 +101,11 @@ const Event = ({ event, events, userData }) => {
             <Button
               variant="primary"
               onClick={() => joinEvent(user, userData, event)}
-              disabled={isDisabled}
+              disabled={!user || isDisabled}
               style={{ backgroundColor: joined_condition ? '#c71c13' : '#0d6efd' }}
             >{user && joined_condition ? 'Leave' : 'Join'}
             </Button>
+            <PlayerList playerList={playerList} isDisabled={isDisabled}/>
           </span>
         </OverlayTrigger>
 
