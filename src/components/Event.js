@@ -7,7 +7,6 @@ const joinEvent = async (user, userData, event) => {
   try {
     const userId = user.uid;
     const joined_events = userData[userId].joined_events;
-    
 
     if (joined_events && joined_events.includes(event.id)) {
       await setData(`/events/${event.id}/current_players`, event.current_players - 1);
@@ -66,7 +65,7 @@ const Event = ({ event, events, userData }) => {
           Players Signed Up: {event.current_players}/{event.max_players}
         </Card.Subtitle>
         <Card.Subtitle className="mb-2 text-muted">
-          Players Attending: {playerList.toString()}
+          Players Attending: {playerList.join(', ')}
         </Card.Subtitle>
         <Card.Subtitle className="mb-2 text-muted">
           Date: {event.date}: {event.start_time} - {event.end_time}

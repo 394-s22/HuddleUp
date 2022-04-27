@@ -46,7 +46,7 @@ const PostButton = () => {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
+      <Button variant="primary" style={{backgroundColor: '#0a58ca'}} onClick={handleShow}>
         Post Event
       </Button>
 
