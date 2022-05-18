@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react';
 import { useData, useUserState } from './utilities/firebase';
 
 const Banner = ({ title }) => (
-  <h1 className='banner' >{title}</h1>
+  <h1 className='banner' data-cy="Banner">{title}</h1>
 );
 
 const App = () => {
