@@ -1,7 +1,7 @@
 import { initializeApp } from 'firebase/app';
 import { useState, useEffect } from 'react';
-import { getDatabase, onValue, ref, set, get, push } from 'firebase/database';
-import { getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithPopup, signOut } from 'firebase/auth';
+import { getDatabase, onValue, ref, set, get, push, connectDatabaseEmulator } from 'firebase/database';
+import { connectAuthEmulator, getAuth, GoogleAuthProvider, onIdTokenChanged, signInWithCredential, signInWithPopup, signOut } from 'firebase/auth';
 
 
 const firebaseConfig = {
@@ -17,6 +17,16 @@ const firebaseConfig = {
 
 const firebase = initializeApp(firebaseConfig);
 const database = getDatabase(firebase);
+const auth = getAuth(firebase);
+
+if (!process.env.NODE_ENV || process.env.NODE_ENV === 'development') {
+  connectAuthEmulator(auth, "https://127.0.0.1:9099");
+  connectDatabaseEmulator(database, "127.0.0.1", 9000);
+
+  signInWithCredential(auth, GoogleAuthProvider.credential(
+    '{"sub": Jm3hobTr4ZdmswKjEf6Z8N2CUnek, "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
+  ));
+}
 
 export const setData = (path, value) => (
   set(ref(database, path), value)
