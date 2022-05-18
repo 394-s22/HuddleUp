@@ -21,7 +21,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "em:start": "firebase emulators:start --import=./saved-data --export-on-exit",
-    "em:run": "firebase emulators:exec --import=./saved-data 'npm start'"
+    "em:run": "firebase emulators:exec --import=./saved-data 'npm start'",
+    "cy:open": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -40,5 +41,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "cypress": "^9.6.1"
   }
 }
