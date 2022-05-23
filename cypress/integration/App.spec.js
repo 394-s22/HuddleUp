@@ -14,8 +14,8 @@ describe('Banner Test', () => {
       cy.visit ('/');
     });
 
-    it ('detects HuddleUp baner', () => {
-        cy.get('[data-cy=Banner]').should('contain', 'HuddleUp');
+    it ('detects HuddleUp banner', () => {
+        cy.get('[class=banner]').should('contain', 'HuddleUp');
     });
 
 });

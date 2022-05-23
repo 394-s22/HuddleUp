@@ -9,7 +9,9 @@ import { useEffect, useState } from 'react';
 import { useData, useUserState } from './utilities/firebase';
 
 const Banner = ({ title }) => (
-  <h1 className='banner' data-cy="Banner">{title}</h1>
+  <div data-cy="Banner">
+    <h1 className='banner'>{title}</h1>
+  </div>
 );
 
 const App = () => {
@@ -30,18 +32,18 @@ const App = () => {
   return (
     <>
       <Banner title={fakeEvents.title} />
-      { currentPage === 'home'?
+      {currentPage === 'home' ?
         <div className='App'>
-          <SearchBar setSearchText={setSearchText} setCurrentPage={setCurrentPage} setFilterCondition={setFilterCondition}/>
+          <SearchBar setSearchText={setSearchText} setCurrentPage={setCurrentPage} setFilterCondition={setFilterCondition} />
           <br />
-          <EventsList events={curEvents} searchText={searchText} userData={userData} currentPage={currentPage} filterCondition={filterCondition}/>
-          {user ? <NavBar setSearchText = {setSearchText} setCurrentPage={setCurrentPage}/> : null}
+          <EventsList events={curEvents} searchText={searchText} userData={userData} currentPage={currentPage} filterCondition={filterCondition} />
+          {user ? <NavBar setSearchText={setSearchText} setCurrentPage={setCurrentPage} /> : null}
           <br />
           <br />
         </div> :
-        
+
         <div className='App'>
-          <SearchBar setSearchText={setSearchText} setCurrentPage={setCurrentPage} setFilterCondition={setFilterCondition}/>
+          <SearchBar setSearchText={setSearchText} setCurrentPage={setCurrentPage} setFilterCondition={setFilterCondition} />
           <br />
           <Button
             variant="primary"
@@ -50,7 +52,7 @@ const App = () => {
               whiteSpace: "nowrap",
               backgroundColor: filterCondition === 'joined_events' ? '#00C87F' : '#0d6efd'
             }}
-            onClick={() => {setFilterCondition('joined_events')}}>
+            onClick={() => { setFilterCondition('joined_events') }}>
             Joined Events
           </Button>
           {" "}
@@ -61,13 +63,13 @@ const App = () => {
               whiteSpace: "nowrap",
               backgroundColor: filterCondition === 'hosted_events' ? '#00C87F' : '#0d6efd'
             }}
-            onClick={() => {setFilterCondition('hosted_events')}}>
+            onClick={() => { setFilterCondition('hosted_events') }}>
             Hosted Events
           </Button>
           <br />
           <br />
-          <EventsList events={curEvents} searchText={searchText} userData={userData} currentPage={currentPage} filterCondition={filterCondition}/>
-          {user ? <NavBar setSearchText = {setSearchText} setCurrentPage={setCurrentPage}/> : null}
+          <EventsList events={curEvents} searchText={searchText} userData={userData} currentPage={currentPage} filterCondition={filterCondition} />
+          {user ? <NavBar setSearchText={setSearchText} setCurrentPage={setCurrentPage} /> : null}
           <br />
           <br />
         </div>
