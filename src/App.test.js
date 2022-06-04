@@ -34,7 +34,6 @@ const mockEvents = {
       "date": "2022-04-11",
       "start_time": "12:00",
       "end_time": "12:50",
-      "join_status": false
     },
   ],
   users: {
@@ -58,3 +57,25 @@ test('shows Sign Out if logged in', () => {
   const button = screen.queryByText(/Sign Out/i);
   expect(button).toBeInTheDocument();
 });
+
+test('retrieves fake event', () => {
+  useData.mockImplementation(
+    (path) => {
+      if(path == "/events") {
+        return [mockEvents.events, false, null];
+      } else if(path == "/users") {
+        return [mockEvents.users, false, null];
+      }
+    }
+  )
+  useUserState.mockReturnValue([fakeUser]);
+  render(<App/>);
+  const card = screen.queryByText(/Pickup Vball/i);
+  expect(card).toBeInTheDocument();
+});
+
+// test('retrieves event from database', async () => {
+//   render(<App />);
+//   const card = await screen.findByText(/Pickup Spikeball/i);
+//   expect(card).toBeInTheDocument();
+// });
