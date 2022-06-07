@@ -167,7 +167,7 @@ const PostButton = () => {
             <Row className="align-items-right">
               <Col style={{ textAlign: 'right' }}>
                 <Button className="mx-2" onClick={handleClose} variant="secondary">Close</Button>
-                <Button type="submit" variant="primary">Post event</Button>
+                <Button type="submit" variant="primary">Post the event</Button>
               </Col>
             </Row>
           </Form>
