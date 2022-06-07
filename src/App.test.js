@@ -1,4 +1,4 @@
-import { render, screen } from '@testing-library/react';
+import { render,fireEvent, screen } from '@testing-library/react';
 import App from './App';
 import { useData, useUserState } from './utilities/firebase';
 
@@ -79,3 +79,21 @@ test('retrieves fake event', () => {
 //   const card = await screen.findByText(/Pickup Spikeball/i);
 //   expect(card).toBeInTheDocument();
 // });
+
+test('joined events button', () => {
+  useData.mockImplementation(
+    (path) => {
+      if(path == "/events") {
+        return [mockEvents.events, false, null];
+      } else if(path == "/users") {
+        return [mockEvents.users, false, null];
+      }
+    }
+  )
+  useUserState.mockReturnValue([fakeUser]);
+  render(<App/>);
+  const button = 'Joined Events';
+  // expect(screen.queryByText(button)).toBeNull();
+  fireEvent.click(screen.queryByText(/My Events/i));
+  expect(screen.queryByText(button)).toBeInTheDocument();
+});
