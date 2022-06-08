@@ -1,4 +1,5 @@
 import { render, fireEvent, screen } from '@testing-library/react';
+import { act } from 'react-dom/test-utils';
 import PostButton from './CreateEvent';
 
 // Jamie Lee
@@ -27,3 +28,15 @@ test('require number input for maximum players', () => {
     fireEvent.change(input, {target: {value: 'Good Day'}})
     expect(input.value).toBe('') //empty after
 });
+
+//David Zhang
+test('require mm/dd/yyyy in date field', () => {
+    render(<PostButton></PostButton>)
+    fireEvent.click(screen.queryByText(/Post Event/i));
+    const input = screen.getByLabelText('Date');
+    fireEvent.click(input);
+
+    fireEvent.change(input, {target: {value: 'Not a valid date'}});
+    expect(input.value).toBe('');
+});
+

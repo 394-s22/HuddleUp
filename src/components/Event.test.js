@@ -86,3 +86,23 @@ test('button becomes Leave when user has joined', () => {
     const button = screen.queryByText(/Leave/i);
     expect(button).toBeInTheDocument();
 });
+
+//David Zhang
+test('clicking join adds a user to the list of joined events', () => {
+    useData.mockImplementation(
+        (path) => {
+            if (path == "/events") {
+                return [mockJoinedEvents.events, false, null];
+            } else if (path == "/users") {
+                return [mockJoinedEvents.users, false, null];
+            }
+        }
+    )
+    useUserState.mockReturnValue([fakeJoinedUser]);
+    render(<Event event={fakeEvent} events={mockJoinedEvents.events} userData={mockJoinedEvents.users} />);
+
+    const viewPlayers = screen.queryByText(/View Players/i);
+    fireEvent.click(viewPlayers);
+
+    expect(screen.getByText(/Joe/i)).toBeInTheDocument();
+});
