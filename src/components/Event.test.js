@@ -106,3 +106,42 @@ test('clicking join adds a user to the list of joined events', () => {
 
     expect(screen.getByText(/Joe/i)).toBeInTheDocument();
 });
+
+// Angel Hernandez
+test('check "View Players" button not clickable without login', () => {
+    useData.mockImplementation(
+        (path) => {
+            if (path == "/events") {
+                return [mockJoinedEvents.events, false, null];
+            } else if (path == "/users") {
+                return [mockJoinedEvents.users, false, null];
+            }
+        }
+    )
+    // before log in
+    useUserState.mockReturnValue([null]);
+    render(<Event event={fakeEvent} events={mockJoinedEvents.events} userData={mockJoinedEvents.users} />);
+
+    let viewPlayers = screen.queryByText(/View Players/i);
+    expect(viewPlayers).toBeDisabled();
+});
+
+// Angel Hernandez
+test('check participant list accessible after login', () => {
+    useData.mockImplementation(
+        (path) => {
+            if (path == "/events") {
+                return [mockJoinedEvents.events, false, null];
+            } else if (path == "/users") {
+                return [mockJoinedEvents.users, false, null];
+            }
+        }
+    )
+    useUserState.mockReturnValue([fakeJoinedUser]);
+    render(<Event event={fakeEvent} events={mockJoinedEvents.events} userData={mockJoinedEvents.users} />);
+
+    const viewPlayers = screen.queryByText(/View Players/i);
+    fireEvent.click(viewPlayers);
+
+    expect(screen.getByText(/Joe/i)).toBeInTheDocument();
+});
