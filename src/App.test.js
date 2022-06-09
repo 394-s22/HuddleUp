@@ -1,4 +1,5 @@
 import { render,fireEvent, screen } from '@testing-library/react';
+import { Nav } from 'react-bootstrap';
 import App from './App';
 import { useData, useUserState } from './utilities/firebase';
 
@@ -97,3 +98,21 @@ test('joined events button', () => {
   fireEvent.click(screen.queryByText(/My Events/i));
   expect(screen.queryByText(button)).toBeInTheDocument();
 });
+
+// Amogh
+test('view events if not signed in', () => {
+  useData.mockImplementation(
+    (path) => {
+      if(path == "/events") {
+        return [mockEvents.events, false, null];
+      } else if(path == "/users") {
+        return [mockEvents.users, false, null];
+      }
+    }
+  )
+  useUserState.mockReturnValue([fakeUser]);
+  render(<App/>);
+  const button = 'View Players';
+  fireEvent.click(screen.queryByText(/View Players/i));
+  expect(screen.queryByText(button)).toBeInTheDocument();
+})
